@@ -1,0 +1,115 @@
+---
+import { navItems, site } from "../data/site";
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<header
+  class="pointer-events-none fixed inset-x-0 top-0 z-50"
+  transition:persist="header"
+>
+  <div class="pointer-events-auto mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-8">
+    <a
+      href="/"
+      class="group flex items-baseline gap-2 text-paper"
+      aria-label={`${site.title} トップへ`}
+    >
+      <span class="font-serif text-2xl tracking-[0.18em]">{site.shortName}</span>
+      <span class="hidden text-[10px] tracking-[0.32em] text-sand/80 sm:inline">PORTFOLIO</span>
+    </a>
+
+    <nav class="hidden md:block" aria-label="メインナビゲーション">
+      <ul class="flex items-center gap-10">
+        {
+          navItems.map((item) => {
+            const current = path === item.href || path.startsWith(`${item.href}/`);
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={current ? "page" : undefined}
+                  class:list={[
+                    "text-[11px] tracking-[0.28em] transition-colors",
+                    current ? "text-paper" : "text-sand/80 hover:text-paper",
+                  ]}
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </nav>
+
+    <button
+      type="button"
+      class="relative z-[60] flex h-11 w-11 items-center justify-center md:hidden"
+      data-nav-toggle
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      aria-label="メニューを開く"
+    >
+      <span class="sr-only">メニュー</span>
+      <span class="flex h-3.5 w-6 flex-col justify-between" aria-hidden="true">
+        <i data-bar class="block h-px w-full bg-paper transition"></i>
+        <i data-bar class="block h-px w-full bg-paper transition"></i>
+        <i data-bar class="block h-px w-full bg-paper transition"></i>
+      </span>
+    </button>
+  </div>
+
+  <div
+    id="mobile-nav"
+    data-nav-panel
+    hidden
+    class="pointer-events-auto fixed inset-0 z-50 flex flex-col justify-end bg-ink/95 px-8 pb-16 pt-24 backdrop-blur-md md:hidden"
+  >
+    <nav aria-label="モバイルナビゲーション">
+      <ul class="space-y-8">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="font-serif text-5xl tracking-[0.08em] text-paper"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function setupNav() {
+    const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+    const panel = document.querySelector<HTMLElement>("[data-nav-panel]");
+    if (!toggle || !panel || toggle.dataset.bound === "true") return;
+    toggle.dataset.bound = "true";
+
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+      panel.hidden = !open;
+      document.body.style.overflow = open ? "hidden" : "";
+    };
+
+    toggle.addEventListener("click", () => {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    panel.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setOpen(false));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setOpen(false);
+    });
+  }
+
+  document.addEventListener("astro:page-load", setupNav);
+</script>

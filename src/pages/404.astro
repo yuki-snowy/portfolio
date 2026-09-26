@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="ページが見つかりません">
+  <main id="main" class="mx-auto max-w-3xl px-5 pb-24 pt-32 md:px-8">
+    <p class="text-[11px] tracking-[0.4em] text-sand">404</p>
+    <h1 class="mt-4 font-serif text-5xl tracking-[0.08em] md:text-7xl">NOT FOUND</h1>
+    <p class="mt-8 text-sm leading-8 text-paper/80">
+      お探しのページは見つかりませんでした。
+    </p>
+    <a
+      href="/"
+      class="mt-12 inline-flex items-center gap-3 border-b border-sand/70 pb-1 text-[11px] tracking-[0.28em] hover:border-paper"
+    >
+      TOPへ戻る
+    </a>
+  </main>
+</BaseLayout>

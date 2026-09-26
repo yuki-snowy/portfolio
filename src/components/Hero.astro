@@ -1,0 +1,54 @@
+---
+import { site } from "../data/site";
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<section
+  class="relative flex min-h-dvh snap-start snap-always flex-col justify-end overflow-hidden"
+  aria-label="ヒーロー"
+>
+  <div class="absolute inset-0">
+    <img
+      src="/images/hero/kv-bg.jpg"
+      alt=""
+      class="h-full w-full object-cover opacity-55"
+      width="1920"
+      height="1080"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/30"></div>
+    <div class="grain pointer-events-none absolute inset-0 opacity-[0.18] mix-blend-overlay"></div>
+  </div>
+
+  <div class="relative z-10 mx-auto w-full max-w-7xl px-5 pb-16 pt-28 md:px-8 md:pb-20">
+    <p
+      class="animate-rise text-[11px] tracking-[0.42em] text-sand"
+      style="animation-delay: 80ms"
+    >
+      {site.role}
+    </p>
+    <h1
+      class="animate-rise mt-6 font-serif text-[18vw] leading-[0.86] tracking-[-0.04em] text-paper sm:text-[12vw] md:text-[9rem] lg:text-[11rem]"
+      style="animation-delay: 160ms"
+    >
+      YUKI
+      <span class="block text-[0.52em] tracking-[0.18em]">PORTFOLIO</span>
+    </h1>
+    {
+      !compact && (
+        <div
+          class="animate-rise mt-10 flex items-center gap-4 text-[11px] tracking-[0.32em] text-mute"
+          style="animation-delay: 280ms"
+        >
+          <span class="h-px w-10 bg-sand/60"></span>
+          SCROLL
+        </div>
+      )
+    }
+  </div>
+</section>

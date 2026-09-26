@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  work: CollectionEntry<"works">;
+  index?: number;
+}
+
+const { work, index = 1 } = Astro.props;
+const number = String(index).padStart(2, "0");
+---
+
+<section
+  class="relative flex min-h-dvh snap-start snap-always items-center overflow-hidden"
+>
+  <div class="absolute inset-0">
+    <img
+      src={work.data.heroImage}
+      alt=""
+      class="h-full w-full object-cover opacity-40"
+      width="1600"
+      height="900"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-ink/70"></div>
+  </div>
+
+  <div
+    class="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-24 md:grid-cols-12 md:gap-16 md:px-8"
+  >
+    <figure class="md:col-span-7">
+      <img
+        src={work.data.thumbnail}
+        alt={`${work.data.title} のサムネイル`}
+        class="aspect-[16/10] w-full object-cover shadow-[0_30px_80px_rgb(0_0_0_/_.45)]"
+        width="1200"
+        height="750"
+        loading="lazy"
+      />
+    </figure>
+
+    <div class="md:col-span-5">
+      <p class="text-[11px] tracking-[0.4em] text-sand">{number} / {work.data.category}</p>
+      <h2 class="mt-4 font-serif text-5xl leading-[0.92] tracking-[0.04em] text-paper md:text-6xl">
+        {
+          work.data.titleLines.map((line) => (
+            <span class="block">{line}</span>
+          ))
+        }
+      </h2>
+      <p class="mt-6 max-w-sm text-sm leading-7 text-paper/75">{work.data.excerpt}</p>
+      <a
+        href={`/works/${work.id}`}
+        class="mt-8 inline-flex items-center gap-3 border-b border-sand/70 pb-1 text-[11px] tracking-[0.28em] text-paper transition-colors hover:border-paper"
+      >
+        VIEW MORE
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
