@@ -1,5 +1,6 @@
 ---
 import { navItems, site } from "../data/site";
+import { ui } from "../data/ui";
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
@@ -15,7 +16,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
       aria-label={`${site.title} トップへ`}
     >
       <span class="font-serif text-2xl tracking-[0.18em]">{site.shortName}</span>
-      <span class="hidden text-[10px] tracking-[0.32em] text-sand/80 sm:inline">PORTFOLIO</span>
+      <span class="hidden text-[10px] tracking-[0.2em] text-sand/80 sm:inline">{ui.portfolio}</span>
     </a>
 
     <nav class="hidden md:block" aria-label="メインナビゲーション">

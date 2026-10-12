@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="MerValue">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1410"/>
+      <stop offset="50%" stop-color="#2a1f18"/>
+      <stop offset="100%" stop-color="#3a2a1c"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f6ecd8" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#f6ecd8" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="300" cy="200" r="240" fill="#e0a45a" fill-opacity="0.14"/>
+  <circle cx="1350" cy="700" r="280" fill="#8fb39a" fill-opacity="0.1"/>
+  <rect x="160" y="170" width="820" height="560" rx="28" fill="url(#panel)" stroke="#f6ecd8" stroke-opacity="0.16"/>
+  <rect x="220" y="230" width="240" height="16" rx="8" fill="#e0a45a"/>
+  <rect x="220" y="290" width="480" height="30" rx="8" fill="#f6ecd8" fill-opacity="0.88"/>
+  <rect x="220" y="350" width="360" height="14" rx="7" fill="#f6ecd8" fill-opacity="0.35"/>
+  <rect x="220" y="420" width="220" height="140" rx="18" fill="#1a1410" fill-opacity="0.45" stroke="#e0a45a" stroke-opacity="0.5"/>
+  <rect x="470" y="420" width="220" height="140" rx="18" fill="#1a1410" fill-opacity="0.45" stroke="#8fb39a" stroke-opacity="0.5"/>
+  <rect x="720" y="420" width="180" height="140" rx="18" fill="#1a1410" fill-opacity="0.45" stroke="#f6ecd8" stroke-opacity="0.25"/>
+  <rect x="220" y="600" width="680" height="70" rx="16" fill="#1a1410" fill-opacity="0.35"/>
+  <text x="1060" y="420" fill="#f6ecd8" font-family="Georgia, 'Times New Roman', serif" font-size="86" letter-spacing="4">MerValue</text>
+  <text x="1060" y="490" fill="#e0a45a" font-family="system-ui, sans-serif" font-size="26" letter-spacing="5">HOME ASSET VALUE</text>
+  <text x="1060" y="550" fill="#f6ecd8" fill-opacity="0.65" font-family="system-ui, sans-serif" font-size="22">¶­…Ç#n¡$ï–</text>
+</svg>

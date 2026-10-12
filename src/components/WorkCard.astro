@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { ui } from "../data/ui";
 
 interface Props {
   work: CollectionEntry<"works">;
@@ -28,7 +29,7 @@ const { work } = Astro.props;
         <p class="mt-2 text-[11px] tracking-[0.28em] text-mute">{work.data.category}</p>
       </div>
       <span class="mt-2 text-[11px] tracking-[0.24em] text-sand transition-colors group-hover:text-paper">
-        VIEW
+        {ui.view}
       </span>
     </div>
   </a>

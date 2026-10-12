@@ -5,9 +5,10 @@ import WorkSlide from "../components/WorkSlide.astro";
 import SnapDots from "../components/SnapDots.astro";
 import { getCollection } from "astro:content";
 import { featuredWorks } from "../lib/works";
+import { ui } from "../data/ui";
 
 const works = featuredWorks(await getCollection("works"));
-const labels = ["TOP", ...works.map((work) => work.data.titleLines[0]), "OTHER"];
+const labels = [ui.top, ...works.map((work) => work.data.titleLines[0]), ui.other];
 ---
 
 <BaseLayout footer={false} class="overflow-hidden">
@@ -43,26 +44,26 @@ const labels = ["TOP", ...works.map((work) => work.data.titleLines[0]), "OTHER"]
         <div class="absolute inset-0 bg-ink/75"></div>
       </div>
       <div class="relative z-10 mx-auto w-full max-w-7xl px-5 py-24 md:px-8">
-        <p class="text-[11px] tracking-[0.4em] text-sand">ARCHIVE</p>
+        <p class="text-[11px] tracking-[0.4em] text-sand">{ui.archive}</p>
         <h2 class="mt-4 font-serif text-5xl leading-[0.92] tracking-[0.06em] md:text-7xl">
-          OTHER
-          <span class="block">WORKS</span>
+          {ui.otherWorks[0]}
+          <span class="block">{ui.otherWorks[1]}</span>
         </h2>
         <p class="mt-6 max-w-md text-sm leading-7 text-paper/75">
-          制作したWEBデザインの一覧です。詳細ページではツール、制作期間、意図を掲載しています。
+          個人開発のWebアプリを掲載しています。詳細ページでは技術スタック、制作期間、設計意図を紹介しています。
         </p>
         <div class="mt-10 flex flex-wrap gap-4">
           <a
             href="/works"
-            class="inline-flex items-center gap-3 border-b border-sand/70 pb-1 text-[11px] tracking-[0.28em] hover:border-paper"
+            class="inline-flex items-center gap-3 border-b border-sand/70 pb-1 text-[11px] tracking-[0.2em] hover:border-paper"
           >
-            VIEW MORE <span aria-hidden="true">→</span>
+            {ui.viewMore} <span aria-hidden="true">→</span>
           </a>
           <a
             href="/profile"
-            class="inline-flex items-center gap-3 text-[11px] tracking-[0.28em] text-mute hover:text-paper"
+            class="inline-flex items-center gap-3 text-[11px] tracking-[0.2em] text-mute hover:text-paper"
           >
-            PROFILE
+            {ui.pages.profile.title}
           </a>
         </div>
       </div>

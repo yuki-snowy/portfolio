@@ -1,6 +1,6 @@
 # YUKI PORTFOLIO SITE
 
-WEBデザイナー / WEBエンジニア **YUKI ITO** のポートフォリオです。
+SES・バックエンド志向の **YUKI ITO** のポートフォリオです（訴求の正本: [`docs/positioning.md`](docs/positioning.md)）。
 
 旧サイト（HTML + SCSS + jQuery + onepage-scroll）を、Astro 5 + Tailwind CSS v4 + TypeScript で再構築しています。
 

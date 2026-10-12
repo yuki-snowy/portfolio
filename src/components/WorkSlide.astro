@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { ui } from "../data/ui";
 
 interface Props {
   work: CollectionEntry<"works">;
@@ -53,7 +54,7 @@ const number = String(index).padStart(2, "0");
         href={`/works/${work.id}`}
         class="mt-8 inline-flex items-center gap-3 border-b border-sand/70 pb-1 text-[11px] tracking-[0.28em] text-paper transition-colors hover:border-paper"
       >
-        VIEW MORE
+        {ui.viewMore}
         <span aria-hidden="true">→</span>
       </a>
     </div>

@@ -1,18 +1,19 @@
 export const site = {
   name: "YUKI ITO",
   shortName: "YUKI",
-  title: "YUKI PORTFOLIO SITE",
-  role: "WEB DESIGNER / WEB ENGINEER",
-  description: "WEBデザイナー|エンジニアYUKIのポートフォリオサイトです",
+  title: "YUKI ポートフォリオ",
+  role: "web屋さん",
+  description:
+    "いろいろ作ったりしてるYUKI ITOのポートフォリオです。",
   url: "https://chipper-lamington-8da97a.netlify.app",
-  twitter: "@snowy_design",
+  twitter: "",
   ogImage: "/images/hero/kv-bg.jpg",
   emailPlaceholder: "sample@email.co.jp",
-  copyrightYear: 2023,
+  copyrightYear: 2026,
 } as const;
 
 export const navItems = [
-  { href: "/works", label: "WORKS" },
-  { href: "/profile", label: "PROFILE" },
-  { href: "/contact", label: "CONTACT" },
+  { href: "/works", label: "制作実績" },
+  { href: "/profile", label: "プロフィール" },
+  { href: "/contact", label: "お問い合わせ" },
 ] as const;

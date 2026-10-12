@@ -1,5 +1,6 @@
 ---
 import { site } from "../data/site";
+import { ui } from "../data/ui";
 
 interface Props {
   compact?: boolean;
@@ -37,7 +38,7 @@ const { compact = false } = Astro.props;
       style="animation-delay: 160ms"
     >
       YUKI
-      <span class="block text-[0.52em] tracking-[0.18em]">PORTFOLIO</span>
+      <span class="block text-[0.52em] tracking-[0.12em]">{ui.portfolio}</span>
     </h1>
     {
       !compact && (
@@ -46,7 +47,7 @@ const { compact = false } = Astro.props;
           style="animation-delay: 280ms"
         >
           <span class="h-px w-10 bg-sand/60"></span>
-          SCROLL
+          {ui.scroll}
         </div>
       )
     }

@@ -1,4 +1,6 @@
 ---
+import { ui } from "../data/ui";
+
 interface Props {
   title: string;
   kicker?: string;
@@ -6,7 +8,7 @@ interface Props {
   dark?: boolean;
 }
 
-const { title, kicker = "WEB DESIGN", image, dark = true } = Astro.props;
+const { title, kicker = ui.webEngineering, image, dark = true } = Astro.props;
 ---
 
 <section class="relative isolate min-h-[58vh] overflow-hidden md:min-h-[68vh]">

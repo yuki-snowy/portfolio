@@ -4,13 +4,18 @@ import PageHero from "../components/PageHero.astro";
 import WorkCard from "../components/WorkCard.astro";
 import { getCollection } from "astro:content";
 import { sortWorks } from "../lib/works";
+import { ui } from "../data/ui";
 
 const works = sortWorks(await getCollection("works"));
 ---
 
-<BaseLayout title="WORKS">
+<BaseLayout title={ui.pages.works.title}>
   <main id="main">
-    <PageHero title="WORKS" image="/images/works/list-bg.jpg" />
+    <PageHero
+      title={ui.pages.works.title}
+      kicker={ui.pages.works.kicker}
+      image="/images/works/list-bg.jpg"
+    />
     <section class="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
       <div class="grid gap-12 md:grid-cols-2 md:gap-x-10 md:gap-y-16">
         {works.map((work) => <WorkCard work={work} />)}
