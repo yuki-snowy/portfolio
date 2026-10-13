@@ -17,7 +17,7 @@
   --color-line: rgb(243 239 230 / 12%);
   --color-line-strong: rgb(243 239 230 / 28%);
   --color-frame: #ffffff;
-  --color-gold: #c4a574;
+  --color-gold: #0b0b0b;
 }
 
 @layer base {
@@ -227,15 +227,27 @@
 }
 
 html[data-snap-tone="light"] .snap-dot-marker {
-  opacity: 0.45;
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+  opacity: 0.5;
 }
 
 html[data-snap-tone="light"] .snap-dot-marker[data-active="true"] {
+  border-color: var(--color-ink);
+  background-color: var(--color-ink);
   opacity: 1;
 }
 
 html[data-snap-tone="dark"] .snap-dot-marker {
-  opacity: 0.55;
+  color: var(--color-paper);
+  border-color: rgb(243 239 230 / 45%);
+  opacity: 0.7;
+}
+
+html[data-snap-tone="dark"] .snap-dot-marker[data-active="true"] {
+  border-color: var(--color-paper);
+  background-color: var(--color-paper);
+  opacity: 1;
 }
 
 html[data-snap-tone="light"] .snap-dot-label {

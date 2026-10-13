@@ -52,16 +52,33 @@ const labels = [ui.top, ...works.map((work) => work.data.titleLines[0])];
 
   function setupSnapDots() {
     const root = document.querySelector<HTMLElement>("[data-snap-root]");
-    if (!root) return;
+    if (!root || root.dataset.snapBound === "true") return;
+    root.dataset.snapBound = "true";
 
     const sections = [...root.querySelectorAll<HTMLElement>("[id^='section-']")];
     const dots = [...document.querySelectorAll<HTMLElement>("[data-dot]")];
+    if (sections.length === 0) return;
+
+    let activeIndex = 0;
+    let loopLock = false;
+
+    const goToSection = (index: number) => {
+      const target = sections[index];
+      if (!target) return;
+      loopLock = true;
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.setTimeout(() => {
+        loopLock = false;
+      }, 700);
+    };
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const index = sections.indexOf(entry.target as HTMLElement);
+          if (index < 0) return;
+          activeIndex = index;
           dots.forEach((dot, i) => {
             dot.dataset.active = String(i === index);
           });
@@ -73,6 +90,58 @@ const labels = [ui.top, ...works.map((work) => work.data.titleLines[0])];
 
     sections.forEach((section) => observer.observe(section));
     setSnapTone("light");
+
+    root.addEventListener(
+      "wheel",
+      (event) => {
+        if (sections.length < 2) return;
+        if (loopLock) {
+          event.preventDefault();
+          return;
+        }
+
+        if (event.deltaY > 0 && activeIndex === sections.length - 1) {
+          event.preventDefault();
+          goToSection(0);
+          return;
+        }
+
+        if (event.deltaY < 0 && activeIndex === 0) {
+          event.preventDefault();
+          goToSection(sections.length - 1);
+        }
+      },
+      { passive: false },
+    );
+
+    let touchStartY = 0;
+    root.addEventListener(
+      "touchstart",
+      (event) => {
+        touchStartY = event.changedTouches[0]?.clientY ?? 0;
+      },
+      { passive: true },
+    );
+
+    root.addEventListener(
+      "touchend",
+      (event) => {
+        if (sections.length < 2 || loopLock) return;
+        const endY = event.changedTouches[0]?.clientY ?? touchStartY;
+        const delta = touchStartY - endY;
+        if (Math.abs(delta) < 48) return;
+
+        if (delta > 0 && activeIndex === sections.length - 1) {
+          goToSection(0);
+          return;
+        }
+
+        if (delta < 0 && activeIndex === 0) {
+          goToSection(sections.length - 1);
+        }
+      },
+      { passive: true },
+    );
   }
 
   setupSnapDots();
