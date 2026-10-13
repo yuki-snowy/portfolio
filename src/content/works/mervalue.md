@@ -3,7 +3,7 @@ title: MerValue
 titleLines:
   - MerValue
 category: Webアプリ
-period: 個人開発
+period: 2日間（要件定義 1日 / 実装 1日）
 tools:
   - Astro / TypeScript
   - Tailwind CSS v4

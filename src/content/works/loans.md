@@ -3,7 +3,7 @@ title: LOAN'S
 titleLines:
   - LOAN'S
 category: Webアプリ
-period: 個人開発
+period: 2日間（要件定義 1日 / 実装 1日）
 tools:
   - PHP / Laravel 13
   - Blade / Tailwind CSS 4
