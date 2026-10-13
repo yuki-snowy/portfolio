@@ -1,12 +1,14 @@
-@import "@fontsource-variable/dm-sans";
-@import "@fontsource-variable/newsreader";
+@import "@fontsource/noto-sans-jp/400.css";
+@import "@fontsource/noto-sans-jp/500.css";
+@import "@fontsource/noto-sans-jp/900.css";
+@import "@fontsource/noto-serif-jp/500.css";
+@import "@fontsource/noto-serif-jp/600.css";
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "DM Sans Variable", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
-    "Noto Sans JP", system-ui, sans-serif;
-  --font-serif: "Newsreader Variable", "Hiragino Mincho ProN", "Yu Mincho",
-    serif;
+  --font-sans: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "Yu Gothic", system-ui, sans-serif;
+  --font-serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --color-ink: #0b0b0b;
   --color-ink-soft: #141414;
   --color-paper: #f3efe6;
@@ -14,6 +16,8 @@
   --color-mute: #8d8880;
   --color-line: rgb(243 239 230 / 12%);
   --color-line-strong: rgb(243 239 230 / 28%);
+  --color-frame: #ffffff;
+  --color-gold: #c4a574;
 }
 
 @layer base {
@@ -25,9 +29,20 @@
     scroll-behavior: smooth;
   }
 
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   body {
     @apply bg-ink font-sans text-paper antialiased;
-    font-feature-settings: "ss01" on, "kern" on;
+    font-feature-settings: "palt" on, "kern" on;
+    text-underline-offset: 0.18em;
   }
 
   ::selection {
@@ -43,6 +58,10 @@
   img {
     @apply max-w-full;
   }
+
+  a {
+    @apply transition-colors duration-300;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -57,6 +76,11 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -86,4 +110,138 @@
 
 @utility animate-rise {
   animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes scroll-thumb {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(22px);
+    opacity: 0;
+  }
+}
+
+@utility animate-scroll-thumb {
+  animation: scroll-thumb 1.8s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal][data-visible] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal-delay="1"] {
+  transition-delay: 90ms;
+}
+
+[data-reveal-delay="2"] {
+  transition-delay: 180ms;
+}
+
+[data-reveal-delay="3"] {
+  transition-delay: 270ms;
+}
+
+@keyframes hero-kv-drift {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero-kv {
+  animation: hero-kv-drift 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.home-header[data-tone="light"] {
+  color: var(--color-ink);
+}
+
+.home-header[data-tone="dark"] {
+  color: var(--color-paper);
+}
+
+.home-header .site-logo--on-light,
+.home-header .site-logo--on-dark {
+  display: none;
+}
+
+.home-header[data-tone="light"] .site-logo--on-light {
+  display: block;
+}
+
+.home-header[data-tone="dark"] .site-logo--on-dark {
+  display: block;
+}
+
+.site-header[data-scrolled="true"][data-tone="light"] {
+  background-color: rgb(255 255 255 / 0.92);
+  box-shadow: 0 1px 0 rgb(11 11 11 / 6%);
+  backdrop-filter: blur(10px);
+}
+
+.site-header[data-scrolled="true"][data-tone="dark"] {
+  background-color: rgb(11 11 11 / 0.92);
+  box-shadow: 0 1px 0 rgb(243 239 230 / 8%);
+  backdrop-filter: blur(10px);
+}
+
+.site-header[data-menu-open="true"] {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  color: var(--color-paper);
+}
+
+.site-header[data-menu-open="true"] .nav-burger i:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.site-header[data-menu-open="true"] .nav-burger i:nth-child(2) {
+  opacity: 0;
+}
+
+.site-header[data-menu-open="true"] .nav-burger i:nth-child(3) {
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+html[data-snap-tone="light"] .snap-dot-marker {
+  opacity: 0.45;
+}
+
+html[data-snap-tone="light"] .snap-dot-marker[data-active="true"] {
+  opacity: 1;
+}
+
+html[data-snap-tone="dark"] .snap-dot-marker {
+  opacity: 0.55;
+}
+
+html[data-snap-tone="light"] .snap-dot-label {
+  color: rgb(11 11 11 / 55%);
+}
+
+html[data-snap-tone="dark"] .snap-dot-label {
+  color: rgb(243 239 230 / 55%);
 }

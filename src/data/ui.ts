@@ -9,12 +9,12 @@ export const ui = {
   archive: "アーカイブ",
   otherWorks: ["その他の", "制作"],
   backToTop: "トップへ戻る",
-  webEngineering: "Webエンジニアリング",
+  webEngineering: "エンジニアリング",
   form: {
     name: "お名前",
     email: "メールアドレス",
     message: "メッセージ",
-    namePlaceholder: "例：伊藤 優樹",
+    namePlaceholder: "例：伊藤 優希",
     submit: "送信する",
   },
   workDetail: {
@@ -26,14 +26,14 @@ export const ui = {
   pages: {
     works: {
       title: "制作実績",
-      kicker: "Webアプリ",
+      kicker: "WORKS",
     },
     profile: {
       title: "プロフィール",
+      kicker: "PROFILE",
     },
     contact: {
       title: "お問い合わせ",
-      kicker: "ご連絡",
     },
     thanks: {
       title: "送信完了",

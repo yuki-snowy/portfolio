@@ -1,0 +1,21 @@
+---
+import { site } from "../data/site";
+
+interface Props {
+  /** 白背景など明るい面の上 */
+  tone?: "light" | "dark";
+  class?: string;
+}
+
+const { tone = "dark", class: className = "" } = Astro.props;
+const src = tone === "light" ? site.logoBlack : site.logoWhite;
+---
+
+<img
+  src={src}
+  alt={site.shortName}
+  width="120"
+  height="120"
+  class:list={["site-logo h-10 w-10 object-contain transition-opacity duration-300 group-hover:opacity-75 md:h-11 md:w-11", className]}
+  decoding="async"
+/>

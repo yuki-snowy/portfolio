@@ -6,14 +6,11 @@ import { ui } from "../data/ui";
 
 <BaseLayout title={ui.pages.contact.title}>
   <main id="main" class="mx-auto max-w-3xl px-5 pb-24 pt-32 md:px-8">
-    <p class="text-[11px] tracking-[0.4em] text-sand">{ui.pages.contact.kicker}</p>
-    <h1 class="mt-4 font-serif text-5xl tracking-[0.08em] md:text-7xl">
+    <h1 class="animate-rise font-serif text-5xl tracking-[0.04em] md:text-7xl">
       {ui.pages.contact.title}
     </h1>
-    <p class="mt-8 text-sm leading-8 text-paper/80">
-      SES・客先常駐を含む、バックエンド開発案件のご相談や<br />
-      技術面のお問い合わせを受け付けています。<br />
-      お気軽にご連絡ください。<br />
+    <p class="animate-rise mt-8 text-sm leading-8 text-paper/80" style="animation-delay: 120ms">
+      ご質問・ご連絡はこちらからどうぞ。<br />
       <span class="text-sand">*</span>は必須項目です。
     </p>
     <ContactForm />

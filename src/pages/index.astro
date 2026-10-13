@@ -8,14 +8,14 @@ import { featuredWorks } from "../lib/works";
 import { ui } from "../data/ui";
 
 const works = featuredWorks(await getCollection("works"));
-const labels = [ui.top, ...works.map((work) => work.data.titleLines[0]), ui.other];
+const labels = [ui.top, ...works.map((work) => work.data.titleLines[0])];
 ---
 
-<BaseLayout footer={false} class="overflow-hidden">
+<BaseLayout footer={false} class="overflow-hidden bg-frame">
   <SnapDots labels={labels} />
   <main
     id="main"
-    class="h-dvh snap-y-mandatory overflow-y-auto overflow-x-hidden"
+    class="h-dvh snap-y-mandatory overflow-y-auto overflow-x-hidden bg-frame"
     data-snap-root
   >
     <div id="section-0">
@@ -28,50 +28,28 @@ const labels = [ui.top, ...works.map((work) => work.data.titleLines[0]), ui.othe
         </div>
       ))
     }
-    <section
-      id={`section-${works.length + 1}`}
-      class="relative flex min-h-dvh snap-start snap-always items-center overflow-hidden"
-    >
-      <div class="absolute inset-0">
-        <img
-          src="/images/works/list-bg.jpg"
-          alt=""
-          class="h-full w-full object-cover opacity-45"
-          width="1600"
-          height="900"
-          loading="lazy"
-        />
-        <div class="absolute inset-0 bg-ink/75"></div>
-      </div>
-      <div class="relative z-10 mx-auto w-full max-w-7xl px-5 py-24 md:px-8">
-        <p class="text-[11px] tracking-[0.4em] text-sand">{ui.archive}</p>
-        <h2 class="mt-4 font-serif text-5xl leading-[0.92] tracking-[0.06em] md:text-7xl">
-          {ui.otherWorks[0]}
-          <span class="block">{ui.otherWorks[1]}</span>
-        </h2>
-        <p class="mt-6 max-w-md text-sm leading-7 text-paper/75">
-          個人開発のWebアプリを掲載しています。詳細ページでは技術スタック、制作期間、設計意図を紹介しています。
-        </p>
-        <div class="mt-10 flex flex-wrap gap-4">
-          <a
-            href="/works"
-            class="inline-flex items-center gap-3 border-b border-sand/70 pb-1 text-[11px] tracking-[0.2em] hover:border-paper"
-          >
-            {ui.viewMore} <span aria-hidden="true">→</span>
-          </a>
-          <a
-            href="/profile"
-            class="inline-flex items-center gap-3 text-[11px] tracking-[0.2em] text-mute hover:text-paper"
-          >
-            {ui.pages.profile.title}
-          </a>
-        </div>
-      </div>
-    </section>
   </main>
 </BaseLayout>
 
 <script>
+  type SnapTone = "light" | "dark";
+
+  function setSnapTone(tone: SnapTone) {
+    document.documentElement.dataset.snapTone = tone;
+
+    const header = document.querySelector<HTMLElement>("[data-header-root]");
+    if (header?.hasAttribute("data-tone")) {
+      header.dataset.tone = tone;
+    }
+
+    document.querySelectorAll<HTMLElement>("[data-dot]").forEach((dot) => {
+      dot.dataset.tone = tone;
+    });
+    document.querySelectorAll<HTMLElement>("[data-snap-label]").forEach((label) => {
+      label.dataset.tone = tone;
+    });
+  }
+
   function setupSnapDots() {
     const root = document.querySelector<HTMLElement>("[data-snap-root]");
     if (!root) return;
@@ -87,12 +65,14 @@ const labels = [ui.top, ...works.map((work) => work.data.titleLines[0]), ui.othe
           dots.forEach((dot, i) => {
             dot.dataset.active = String(i === index);
           });
+          setSnapTone(index === 0 ? "light" : "dark");
         });
       },
       { root, threshold: 0.55 },
     );
 
     sections.forEach((section) => observer.observe(section));
+    setSnapTone("light");
   }
 
   setupSnapDots();

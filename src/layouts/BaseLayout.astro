@@ -46,7 +46,8 @@ const og = new URL(ogImage, Astro.site ?? site.url);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={og.href} />
     <link rel="canonical" href={canonical.href} />
-    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="icon" href={site.favicon} type="image/png" />
+    <link rel="apple-touch-icon" href={site.favicon} />
     <title>{pageTitle}</title>
     <ClientRouter />
   </head>
@@ -60,5 +61,31 @@ const og = new URL(ogImage, Astro.site ?? site.url);
     <Header />
     <slot />
     {footer && <Footer />}
+    <script>
+      function setupReveal() {
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const els = document.querySelectorAll("[data-reveal]");
+        if (reduce) {
+          els.forEach((el) => el.setAttribute("data-visible", ""));
+          return;
+        }
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.setAttribute("data-visible", "");
+              io.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.08, rootMargin: "0px 0px -5% 0px" },
+        );
+
+        els.forEach((el) => io.observe(el));
+      }
+
+      setupReveal();
+      document.addEventListener("astro:page-load", setupReveal);
+    </script>
   </body>
 </html>

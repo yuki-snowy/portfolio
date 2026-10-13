@@ -1,61 +1,91 @@
 ---
 import { navItems, site } from "../data/site";
-import { ui } from "../data/ui";
+import SiteLogo from "./SiteLogo.astro";
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isHome = path === "/";
 ---
 
 <header
-  class="pointer-events-none fixed inset-x-0 top-0 z-50"
-  transition:persist="header"
+  class:list={[
+    "site-header pointer-events-none fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,color] duration-400",
+    isHome ? "home-header" : "text-paper",
+  ]}
+  data-header-root
+  data-tone={isHome ? "light" : "dark"}
+  data-scrolled="false"
+  data-home={isHome ? "true" : "false"}
 >
-  <div class="pointer-events-auto mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-8">
+  <div
+    class:list={[
+      "pointer-events-auto mx-auto flex items-center justify-between",
+      isHome
+        ? "max-w-[1600px] px-6 py-5 md:px-10 md:py-6 lg:px-14"
+        : "max-w-7xl px-5 py-5 md:px-8",
+    ]}
+  >
     <a
       href="/"
-      class="group flex items-baseline gap-2 text-paper"
+      class="group relative z-[70] block shrink-0"
       aria-label={`${site.title} トップへ`}
+      data-header-logo
     >
-      <span class="font-serif text-2xl tracking-[0.18em]">{site.shortName}</span>
-      <span class="hidden text-[10px] tracking-[0.2em] text-sand/80 sm:inline">{ui.portfolio}</span>
+      {
+        isHome ? (
+          <>
+            <SiteLogo tone="light" class="site-logo--on-light" />
+            <SiteLogo tone="dark" class="site-logo--on-dark" />
+          </>
+        ) : (
+          <SiteLogo tone="dark" />
+        )
+      }
     </a>
 
-    <nav class="hidden md:block" aria-label="メインナビゲーション">
-      <ul class="flex items-center gap-10">
-        {
-          navItems.map((item) => {
-            const current = path === item.href || path.startsWith(`${item.href}/`);
-            return (
-              <li>
-                <a
-                  href={item.href}
-                  aria-current={current ? "page" : undefined}
-                  class:list={[
-                    "text-[11px] tracking-[0.28em] transition-colors",
-                    current ? "text-paper" : "text-sand/80 hover:text-paper",
-                  ]}
-                >
-                  {item.label}
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
-    </nav>
+    {
+      !isHome && (
+        <nav class="hidden md:block" aria-label="メインナビゲーション">
+          <ul class="flex items-center gap-10">
+            {
+              navItems.map((item) => {
+                const current = path === item.href || path.startsWith(`${item.href}/`);
+                return (
+                  <li>
+                    <a
+                      href={item.href}
+                      aria-current={current ? "page" : undefined}
+                      class:list={[
+                        "text-[11px] tracking-[0.12em] transition-colors duration-300",
+                        current ? "text-paper" : "text-sand/80 hover:text-paper",
+                      ]}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </nav>
+      )
+    }
 
     <button
       type="button"
-      class="relative z-[60] flex h-11 w-11 items-center justify-center md:hidden"
+      class:list={[
+        "relative z-[70] flex h-11 w-11 items-center justify-center text-current",
+        !isHome && "md:hidden",
+      ]}
       data-nav-toggle
       aria-expanded="false"
       aria-controls="mobile-nav"
       aria-label="メニューを開く"
     >
       <span class="sr-only">メニュー</span>
-      <span class="flex h-3.5 w-6 flex-col justify-between" aria-hidden="true">
-        <i data-bar class="block h-px w-full bg-paper transition"></i>
-        <i data-bar class="block h-px w-full bg-paper transition"></i>
-        <i data-bar class="block h-px w-full bg-paper transition"></i>
+      <span class="nav-burger relative block h-3.5 w-6" aria-hidden="true">
+        <i data-bar class="absolute left-0 top-0 block h-px w-full bg-current transition duration-300"></i>
+        <i data-bar class="absolute left-0 top-1/2 block h-px w-full -translate-y-1/2 bg-current transition duration-300"></i>
+        <i data-bar class="absolute bottom-0 left-0 block h-px w-full bg-current transition duration-300"></i>
       </span>
     </button>
   </div>
@@ -64,16 +94,19 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
     id="mobile-nav"
     data-nav-panel
     hidden
-    class="pointer-events-auto fixed inset-0 z-50 flex flex-col justify-end bg-ink/95 px-8 pb-16 pt-24 backdrop-blur-md md:hidden"
+    class:list={[
+      "pointer-events-auto fixed inset-0 z-[60] flex items-center justify-center bg-ink",
+      !isHome && "md:hidden",
+    ]}
   >
-    <nav aria-label="モバイルナビゲーション">
-      <ul class="space-y-8">
+    <nav aria-label="メニュー">
+      <ul class="flex flex-col items-center gap-10 md:gap-12">
         {
           navItems.map((item) => (
             <li>
               <a
                 href={item.href}
-                class="font-serif text-5xl tracking-[0.08em] text-paper"
+                class="font-sans text-3xl font-bold tracking-[0.08em] text-paper transition-opacity duration-300 hover:opacity-70 md:text-4xl"
               >
                 {item.label}
               </a>
@@ -86,10 +119,37 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 </header>
 
 <script>
-  function setupNav() {
+  function setupHeader() {
+    const header = document.querySelector<HTMLElement>("[data-header-root]");
     const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
     const panel = document.querySelector<HTMLElement>("[data-nav-panel]");
-    if (!toggle || !panel || toggle.dataset.bound === "true") return;
+    const logo = document.querySelector<HTMLElement>("[data-header-logo]");
+    if (!header || !toggle || !panel) return;
+
+    const SCROLL_THRESHOLD = 24;
+
+    const setScrolled = (scrolled: boolean) => {
+      header.dataset.scrolled = String(scrolled);
+    };
+
+    const updateScroll = () => {
+      const snapRoot = document.querySelector<HTMLElement>("[data-snap-root]");
+      const top = snapRoot ? snapRoot.scrollTop : window.scrollY;
+      setScrolled(top > SCROLL_THRESHOLD);
+    };
+
+    if (header.dataset.scrollBound !== "true") {
+      header.dataset.scrollBound = "true";
+      const snapRoot = document.querySelector<HTMLElement>("[data-snap-root]");
+      if (snapRoot) {
+        snapRoot.addEventListener("scroll", updateScroll, { passive: true });
+      } else {
+        window.addEventListener("scroll", updateScroll, { passive: true });
+      }
+    }
+    updateScroll();
+
+    if (toggle.dataset.bound === "true") return;
     toggle.dataset.bound = "true";
 
     const setOpen = (open: boolean) => {
@@ -97,6 +157,16 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
       toggle.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
       panel.hidden = !open;
       document.body.style.overflow = open ? "hidden" : "";
+      header.dataset.menuOpen = String(open);
+      if (logo) logo.style.visibility = open ? "hidden" : "";
+      if (open) {
+        header.dataset.tone = "dark";
+      } else if (header.dataset.home === "true") {
+        const snapTone = document.documentElement.dataset.snapTone;
+        header.dataset.tone = snapTone === "dark" ? "dark" : "light";
+      } else {
+        header.dataset.tone = "dark";
+      }
     };
 
     toggle.addEventListener("click", () => {
@@ -112,5 +182,6 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
     });
   }
 
-  document.addEventListener("astro:page-load", setupNav);
+  document.addEventListener("astro:page-load", setupHeader);
+  setupHeader();
 </script>
