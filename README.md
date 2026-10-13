@@ -1,6 +1,6 @@
 # YUKI PORTFOLIO
 
-**YUKI ITO** のポートフォリオ（エンジニア）。訴求の正本は [`docs/positioning.md`](docs/positioning.md)。
+**YUKI ITO** のポートフォリオ（エンジニア）。
 
 Astro 5 + Tailwind CSS v4 + TypeScript の静的サイトです。フォントは Noto Sans JP / Noto Serif JP。
 

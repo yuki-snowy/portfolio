@@ -13,10 +13,25 @@ import { ui } from "../data/ui";
       image="/images/profile/bg.jpg"
     />
 
-    <section class="mx-auto max-w-3xl px-5 py-16 md:px-8 md:py-24" data-reveal>
-      <h2 class="font-serif text-4xl tracking-[0.04em] md:text-5xl">{profile.name}</h2>
-      <div class="mt-8 space-y-4 text-sm leading-8 text-paper/80">
-        {profile.bio.map((paragraph) => <p>{paragraph}</p>)}
+    <section class="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24" data-reveal>
+      <div class="grid items-start gap-10 md:grid-cols-12 md:gap-14 lg:gap-16">
+        <figure class="md:col-span-5">
+          <img
+            src={profile.portrait}
+            alt={`${profile.name} の写真`}
+            class="aspect-square w-full object-cover object-center bg-ink-soft"
+            width="960"
+            height="960"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <div class="md:col-span-7">
+          <h2 class="font-serif text-4xl tracking-[0.04em] md:text-5xl">{profile.name}</h2>
+          <div class="mt-8 space-y-4 text-sm leading-8 text-paper/80">
+            {profile.bio.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </div>
       </div>
     </section>
 
