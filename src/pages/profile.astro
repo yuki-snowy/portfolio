@@ -2,36 +2,45 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
 import { profile } from "../data/profile";
+import { ui } from "../data/ui";
 ---
 
-<BaseLayout title="PROFILE">
+<BaseLayout title={ui.pages.profile.title}>
   <main id="main">
-    <PageHero title="PROFILE" image="/images/profile/bg.jpg" />
+    <PageHero
+      title={ui.pages.profile.title}
+      kicker={ui.pages.profile.kicker}
+      image="/images/profile/bg.jpg"
+    />
 
-    <section class="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 md:grid-cols-2 md:gap-20 md:px-8 md:py-24">
-      <div>
-        <h2 class="font-serif text-4xl tracking-[0.12em] md:text-5xl">{profile.name}</h2>
-        <div class="mt-8 space-y-4 text-sm leading-8 text-paper/80">
-          {profile.bio.map((paragraph) => <p>{paragraph}</p>)}
+    <section class="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24" data-reveal>
+      <div class="grid items-start gap-10 md:grid-cols-12 md:gap-14 lg:gap-16">
+        <figure class="md:col-span-5">
+          <img
+            src={profile.portrait}
+            alt={`${profile.name} の写真`}
+            class="aspect-square w-full object-cover object-center bg-ink-soft"
+            width="960"
+            height="960"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <div class="md:col-span-7">
+          <h2 class="font-serif text-4xl tracking-[0.04em] md:text-5xl">{profile.name}</h2>
+          <div class="mt-8 space-y-4 text-sm leading-8 text-paper/80">
+            {profile.bio.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
         </div>
       </div>
-      <figure class="bg-ink-soft">
-        <img
-          src={profile.portrait}
-          alt={`${profile.name} のポートレート`}
-          class="aspect-[4/5] w-full object-cover object-top grayscale"
-          width="800"
-          height="1000"
-        />
-      </figure>
     </section>
 
-    <section class="border-t border-line bg-ink-soft">
-      <div class="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-3 md:gap-10 md:px-8 md:py-24">
+    <section class="border-t border-line bg-ink-soft" data-reveal>
+      <div class="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-2 md:gap-16 md:px-8 md:py-24">
         {
-          profile.skills.map((skill) => (
-            <article>
-              <h2 class="text-[11px] tracking-[0.32em] text-sand">{skill.heading}</h2>
+          profile.skills.map((skill, index) => (
+            <article data-reveal data-reveal-delay={String(Math.min(index + 1, 3))}>
+              <h2 class="text-[11px] tracking-[0.2em] text-sand">{skill.heading}</h2>
               <div class="mt-5 space-y-3 text-sm leading-8 text-paper/80">
                 {skill.body.map((line) => (
                   <p>{line}</p>
@@ -44,9 +53,9 @@ import { profile } from "../data/profile";
       <div class="mx-auto max-w-7xl px-5 pb-20 md:px-8">
         <a
           href="/contact"
-          class="inline-flex items-center gap-3 border-b border-sand/70 pb-1 text-[11px] tracking-[0.28em] hover:border-paper"
+          class="inline-flex items-center gap-3 border-b border-sand/70 pb-1 text-[11px] tracking-[0.2em] hover:border-paper"
         >
-          CONTACT <span aria-hidden="true">→</span>
+          {ui.pages.contact.title} <span aria-hidden="true">→</span>
         </a>
       </div>
     </section>

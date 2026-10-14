@@ -16,6 +16,8 @@ const works = defineCollection({
     featured: z.boolean().default(false),
     order: z.number(),
     seoTitle: z.string().optional(),
+    repoUrl: z.string().url().optional(),
+    liveUrl: z.string().url().optional(),
   }),
 });
 
