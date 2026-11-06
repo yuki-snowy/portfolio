@@ -3,7 +3,7 @@
   "type": "module",
   "version": "2.0.0",
   "private": true,
-  "description": "YUKI ITO — WEBデザイナー / WEBエンジニアのポートフォリオ",
+  "description": "YUKI ITO — エンジニアのポートフォリオ",
   "scripts": {
     "dev": "astro dev --host 0.0.0.0 --port 4321",
     "start": "astro dev --host 0.0.0.0 --port 4321",
@@ -12,8 +12,8 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@fontsource-variable/dm-sans": "^5.2.8",
-    "@fontsource-variable/newsreader": "^5.2.10",
+    "@fontsource/noto-sans-jp": "^5.3.1",
+    "@fontsource/noto-serif-jp": "^5.3.1",
     "astro": "^5.13.10",
     "tailwindcss": "^4.1.13"
   },

@@ -7,7 +7,6 @@ const works = defineCollection({
     title: z.string(),
     titleLines: z.array(z.string()),
     category: z.string(),
-    period: z.string(),
     tools: z.array(z.string()),
     excerpt: z.string(),
     heroImage: z.string(),
@@ -16,6 +15,8 @@ const works = defineCollection({
     featured: z.boolean().default(false),
     order: z.number(),
     seoTitle: z.string().optional(),
+    repoUrl: z.string().url().optional(),
+    liveUrl: z.string().url().optional(),
   }),
 });
 

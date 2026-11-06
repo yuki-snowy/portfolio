@@ -7,10 +7,11 @@ const { labels } = Astro.props;
 ---
 
 <nav
-  class="pointer-events-none fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 md:block"
+  class="pointer-events-none fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 md:block lg:right-8"
   aria-label="セクション"
+  data-snap-nav
 >
-  <ol class="pointer-events-auto flex flex-col gap-3">
+  <ol class="pointer-events-auto flex flex-col gap-4">
     {
       labels.map((label, index) => (
         <li>
@@ -20,13 +21,16 @@ const { labels } = Astro.props;
             class="group flex items-center justify-end gap-3"
             aria-label={label}
           >
-            <span class="text-[10px] tracking-[0.24em] text-mute opacity-0 transition group-hover:opacity-100">
+            <span
+              class="snap-dot-label text-[10px] tracking-[0.16em] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              data-snap-label
+            >
               {label}
             </span>
             <span
-              class="block h-1.5 w-1.5 rounded-full bg-paper/30 ring-1 ring-paper/20 transition data-[active=true]:bg-paper"
+              class="snap-dot-marker block h-2 w-2 rotate-45 border bg-transparent transition-[background-color,border-color,transform,opacity] duration-300 data-[active=true]:scale-110"
               data-dot
-            ></span>
+            />
           </a>
         </li>
       ))
