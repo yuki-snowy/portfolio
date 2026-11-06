@@ -257,3 +257,21 @@ html[data-snap-tone="light"] .snap-dot-label {
 html[data-snap-tone="dark"] .snap-dot-label {
   color: rgb(243 239 230 / 55%);
 }
+
+.nav-menu-link {
+  display: block;
+  width: 8.5em;
+  font-family: var(--font-sans);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.12em;
+  color: var(--color-paper);
+  text-align: justify;
+  text-align-last: justify;
+  transition: opacity 0.3s ease;
+}
+
+.nav-menu-link:hover {
+  opacity: 0.7;
+}

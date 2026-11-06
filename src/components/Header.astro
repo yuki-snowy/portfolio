@@ -42,43 +42,12 @@ const isHome = path === "/";
       }
     </a>
 
-    {
-      !isHome && (
-        <nav class="hidden md:block" aria-label="メインナビゲーション">
-          <ul class="flex items-center gap-10">
-            {
-              navItems.map((item) => {
-                const current = path === item.href || path.startsWith(`${item.href}/`);
-                return (
-                  <li>
-                    <a
-                      href={item.href}
-                      aria-current={current ? "page" : undefined}
-                      class:list={[
-                        "text-[11px] tracking-[0.12em] transition-colors duration-300",
-                        current ? "text-paper" : "text-sand/80 hover:text-paper",
-                      ]}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                );
-              })
-            }
-          </ul>
-        </nav>
-      )
-    }
-
     <button
       type="button"
-      class:list={[
-        "relative z-[70] flex h-11 w-11 items-center justify-center text-current",
-        !isHome && "md:hidden",
-      ]}
+      class="relative z-[70] flex h-11 w-11 items-center justify-center text-current"
       data-nav-toggle
       aria-expanded="false"
-      aria-controls="mobile-nav"
+      aria-controls="site-nav"
       aria-label="メニューを開く"
     >
       <span class="sr-only">メニュー</span>
@@ -91,23 +60,17 @@ const isHome = path === "/";
   </div>
 
   <div
-    id="mobile-nav"
+    id="site-nav"
     data-nav-panel
     hidden
-    class:list={[
-      "pointer-events-auto fixed inset-0 z-[60] flex items-center justify-center bg-ink",
-      !isHome && "md:hidden",
-    ]}
+    class="pointer-events-auto fixed inset-0 z-[60] flex items-center justify-center bg-ink"
   >
     <nav aria-label="メニュー">
       <ul class="flex flex-col items-center gap-10 md:gap-12">
         {
           navItems.map((item) => (
             <li>
-              <a
-                href={item.href}
-                class="font-sans text-3xl font-bold tracking-[0.08em] text-paper transition-opacity duration-300 hover:opacity-70 md:text-4xl"
-              >
+              <a href={item.href} class="nav-menu-link">
                 {item.label}
               </a>
             </li>

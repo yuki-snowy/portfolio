@@ -46,7 +46,7 @@ const og = new URL(ogImage, Astro.site ?? site.url);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={og.href} />
     <link rel="canonical" href={canonical.href} />
-    <link rel="icon" href={site.favicon} type="image/png" />
+    <link rel="icon" href={site.favicon} type="image/webp" />
     <link rel="apple-touch-icon" href={site.favicon} />
     <title>{pageTitle}</title>
     <ClientRouter />

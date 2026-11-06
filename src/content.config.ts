@@ -7,7 +7,6 @@ const works = defineCollection({
     title: z.string(),
     titleLines: z.array(z.string()),
     category: z.string(),
-    period: z.string(),
     tools: z.array(z.string()),
     excerpt: z.string(),
     heroImage: z.string(),

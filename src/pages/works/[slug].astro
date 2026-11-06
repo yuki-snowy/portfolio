@@ -32,10 +32,6 @@ const { Content } = await render(work);
             {work.data.tools.map((tool) => <li>{tool}</li>)}
           </ul>
         </div>
-        <div>
-          <h2 class="text-[11px] tracking-[0.2em] text-sand">{ui.workDetail.period}</h2>
-          <p class="mt-3 text-sm text-paper/85">{work.data.period}</p>
-        </div>
         {
           (work.data.repoUrl || work.data.liveUrl) && (
             <div>

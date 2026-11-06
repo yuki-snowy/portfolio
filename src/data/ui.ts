@@ -19,7 +19,6 @@ export const ui = {
   },
   workDetail: {
     tools: "技術スタック",
-    period: "制作期間",
     comment: "コメント",
     links: "リンク",
   },
